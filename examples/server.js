@@ -48,7 +48,7 @@ module.exports = app.listen(port, () => {
 function registerSimpleRouter () {
   router.get('/simple/get', function(req, res) {
     res.json({
-      msg: `hello world`
+      msg: req.query
     })
   })
 }

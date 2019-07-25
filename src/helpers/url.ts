@@ -33,10 +33,7 @@ export function bulidURL(url: string, parmas?: any) {
     } else {
       values = [val]
     }
-    console.log(key, 'keykey')
-    console.log(values, 'valuesvalues')
     values.forEach(val => {
-      console.log(val, 'forEachVal')
       if (isDate(val)) {
         val = val.toISOString()
       } else if (isPlainObject(val)) {
@@ -58,3 +55,4 @@ export function bulidURL(url: string, parmas?: any) {
   }
   return url
 }
+// 处理 url
