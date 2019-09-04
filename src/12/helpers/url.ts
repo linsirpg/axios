@@ -15,9 +15,11 @@ export function bulidURL(url: string, params?: any) {
   if (!params) {
     return url
   }
+
   const parts: string[] = []
+
   Object.keys(params).forEach(key => {
-    const val = params[key]
+    let val = params[key]
     if (val === null || typeof val === 'undefined') {
       return
     }
@@ -29,20 +31,23 @@ export function bulidURL(url: string, params?: any) {
       values = [val]
     }
     values.forEach(val => {
-      console.log(val)
       if (isDate(val)) {
         val = val.toISOString()
-      } else if (isPlainObject(val)) {
+      } else if (isPlainObject) {
         val = JSON.stringify(val)
       }
       parts.push(`${encode(key)}=${encode(val)}`)
     })
   })
+
   let serializedParams = parts.join('&')
-  let markIndex = url.indexOf('#')
-  if (markIndex !== -1) {
-    url = url.slice(0, markIndex)
+  if (serializedParams) {
+    const markIndex = url.indexOf('#')
+    if (markIndex !== -1) {
+      url = url.slice(0, markIndex)
+    }
+    url = url + (url.indexOf('?') !== -1 ? '&' : '?') + serializedParams
   }
-  url = url + (url.indexOf('?') !== -1 ? '&' : '?') + serializedParams
+
   return url
 }
